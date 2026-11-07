@@ -11,8 +11,14 @@
   * { box-sizing: border-box; }
   body { margin: 0; font-family: 'Kanit', sans-serif; background: #f4f6fa; color: #1d2433; font-size: 18px; }
   nav { display: flex; gap: 6px; overflow-x: auto; padding: 10px; background: #1d2433; }
-  nav span { flex: none; padding: 8px 14px; border-radius: 999px; color: #9aa3b5; font-size: 15px; }
-  nav span.on { background: #fff; color: #1d2433; font-weight: 600; }
+  nav a { flex: none; padding: 8px 14px; border-radius: 999px; color: #9aa3b5; font-size: 15px; text-decoration: none; }
+  nav a.on { background: #fff; color: #1d2433; font-weight: 600; }
+  section { display: none; } section.on { display: block; }
+  .soon { text-align: center; color: #5a6378; padding: 40px 0; }
+  .type { background: #fff; border-radius: 16px; padding: 18px; box-shadow: 0 2px 8px rgba(0,0,0,.08); margin-bottom: 14px; border-top: 8px solid #ccc; }
+  .type h3 { margin: 0 0 10px; font-size: 22px; }
+  .row { display: flex; gap: 10px; align-items: center; margin: 8px 0; font-size: 18px; }
+  .row i { font-style: normal; font-size: 26px; width: 34px; text-align: center; }
   main { max-width: 720px; margin: 0 auto; padding: 16px; }
   h1 { font-size: 26px; margin: 6px 0 16px; text-align: center; }
   .step { display: flex; align-items: center; gap: 14px; background: #fff; border-radius: 16px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
@@ -31,12 +37,13 @@
 </head>
 <body>
 <nav>
-  <span class="on">🎨 กราฟฟิก</span>
-  <span>🎬 วิดีโอ (เร็วๆ นี้)</span>
-  <span>🔗 จัดการ SKU (เร็วๆ นี้)</span>
-  <span>📦 สต๊อก / QC (เร็วๆ นี้)</span>
+  <a href="#graphic">🎨 กราฟฟิก</a>
+  <a href="#video">🎬 วิดีโอ</a>
+  <a href="#sku">🔗 จัดการ SKU</a>
+  <a href="#stock">📦 สต๊อก / QC</a>
 </nav>
 <main>
+<section id="graphic">
   <h1>🎨 งานกราฟฟิก</h1>
 
   <div class="step">
@@ -58,12 +65,40 @@
 
   <h2>🧩 แพทเทิร์น (กดเพื่อดูรูปใหญ่)</h2>
   <div class="gallery" id="gallery"></div>
+</section>
+
+<section id="video">
+  <h1>🎬 งานวิดีโอ</h1>
+  <div class="type" style="border-top-color:#f2994a">
+    <h3>⚡ แบบที่ 1: เน้นจำนวน</h3>
+    <div class="row"><i>📈</i>ทำเยอะๆ ทำแบบไหนก็ได้</div>
+    <div class="row"><i>⏱️</i>คลิปยาว 20 วินาที</div>
+    <div class="row"><i>👀</i>ขอให้ดูน่าสนใจ</div>
+    <div class="row"><i>📱</i>ลง Shopee + TikTok</div>
+    <div class="row"><i>🎯</i>ไว้เรียกยอดวิว วิวไม่ต้องเยอะก็ได้</div>
+  </div>
+  <div class="type" style="border-top-color:#9b51e0">
+    <h3>💎 แบบที่ 2: เน้นคุณภาพ</h3>
+    <div class="row"><i>✨</i>ตั้งใจทำ ให้ดูน่าสนใจ</div>
+    <div class="row"><i>🎵</i>ลง TikTok เป็นหลัก</div>
+  </div>
+</section>
+
+<section id="sku"><h1>🔗 จัดการ SKU</h1><p class="soon">เร็วๆ นี้</p></section>
+<section id="stock"><h1>📦 สต๊อก / QC</h1><p class="soon">เร็วๆ นี้</p></section>
 </main>
 <script>
 // ชื่อไฟล์ใน patterns/ (แปลงจาก PSD ในโฟลเดอร์ Pictures\n)
 ['A2','AL','AM','AR','BS','DP','KS','PM','PR','SP','WE','ZN'].forEach(c =>
   document.getElementById('gallery').insertAdjacentHTML('beforeend',
     `<a href="patterns/${c}.jpg"><img src="patterns/${c}.jpg" alt="แพทเทิร์น ${c}" loading="lazy"><span>${c}</span></a>`));
+// แท็บ: เปิดตาม #ลิงก์ เช่น .../workflow/#video
+function tab() {
+  const id = document.getElementById(location.hash.slice(1)) ? location.hash.slice(1) : 'graphic';
+  document.querySelectorAll('section').forEach(x => x.classList.toggle('on', x.id === id));
+  document.querySelectorAll('nav a').forEach(a => a.classList.toggle('on', a.hash === '#' + id));
+}
+addEventListener('hashchange', tab); tab();
 </script>
 </body>
 </html>
