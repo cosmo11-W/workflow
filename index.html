@@ -3,207 +3,106 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Workflow แผนก</title>
+<title>ขั้นตอนทำรูป ลงสินค้า เชื่อม SKU</title>
+<meta property="og:title" content="ขั้นตอนทำรูป ลงสินค้า เชื่อม SKU">
+<meta property="og:description" content="คู่มือ 4 ขั้น: ทำรูป → ลงสินค้า BigSeller → เชื่อม SKU → จบงาน">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; }
-  body { margin: 0; font-family: 'Kanit', sans-serif; background: #f4f6fa; color: #1d2433; }
-  header { background: #1d2433; color: #fff; padding: 20px; text-align: center; }
+  body { margin: 0; font-family: 'Kanit', sans-serif; background: #f4f6fa; color: #1d2433; font-size: 18px; line-height: 1.6; }
+  header { background: #1d2433; color: #fff; padding: 24px 16px; text-align: center; }
   header h1 { margin: 0; font-size: 26px; }
-  header p { margin: 4px 0 0; opacity: .7; }
-  main { max-width: 1100px; margin: 0 auto; padding: 20px; }
-  h2 { font-size: 20px; margin: 24px 0 12px; }
-  .flow { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; }
-  .step { border: 0; border-radius: 14px; padding: 14px 18px; color: #fff; font: inherit; font-size: 16px;
-          cursor: pointer; min-width: 130px; text-align: center; box-shadow: 0 3px 8px rgba(0,0,0,.15); transition: transform .15s; }
-  .step:hover, .step.active { transform: translateY(-3px); outline: 3px solid #1d2433; }
-  .step small { display: block; opacity: .85; font-size: 13px; }
-  .arrow { font-size: 26px; color: #8a93a6; }
-  .detail { background: #fff; border-radius: 14px; padding: 20px; margin-top: 20px; border-left: 8px solid #ccc;
-            box-shadow: 0 2px 6px rgba(0,0,0,.08); }
-  .detail h3 { margin: 0 0 6px; font-size: 22px; }
-  .detail .meta { color: #5a6378; margin-bottom: 12px; }
-  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-  .cols h4 { margin: 0 0 6px; }
-  .cols ul { margin: 0; padding-left: 20px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
-  .card { background: #fff; border-radius: 12px; padding: 14px; border-top: 6px solid #ccc; cursor: pointer; }
-  .card b { font-size: 17px; }
-  .card div { color: #5a6378; font-size: 14px; margin-top: 4px; }
-  .tabs { display: flex; flex-wrap: wrap; gap: 8px; }
-  .tab { border: 2px solid #1d2433; background: #fff; border-radius: 999px; padding: 8px 16px; font: inherit; cursor: pointer; }
-  .tab.active { background: #1d2433; color: #fff; }
-  .sop { background: #fff; border-radius: 14px; padding: 20px; margin-top: 14px; box-shadow: 0 2px 6px rgba(0,0,0,.08); }
-  .sop .note { background: #fff6d6; border-radius: 8px; padding: 8px 12px; color: #6b5500; font-size: 14px; }
-  .part { margin-top: 18px; }
-  .part h4 { margin: 0 0 8px; font-size: 18px; }
-  .part ol { margin: 0; padding-left: 22px; }
-  .part li { margin: 4px 0; }
-  .check { margin-top: 10px; background: #f4f6fa; border-radius: 8px; padding: 10px 14px; }
-  .check label { display: block; margin: 4px 0; cursor: pointer; }
-  .sop-links { margin-top: 12px; }
-  .sop-links button { border: 0; background: #1d2433; color: #fff; border-radius: 8px; padding: 6px 12px; font: inherit; margin: 4px 6px 0 0; cursor: pointer; }
-  @media (max-width: 640px) { .flow { flex-direction: column; } .arrow { transform: rotate(90deg); } .step { width: 100%; } }
+  header p { margin: 6px 0 0; opacity: .75; font-size: 16px; }
+  main { max-width: 720px; margin: 0 auto; padding: 16px; }
+  .step { display: flex; gap: 14px; background: #fff; border-radius: 16px; padding: 18px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+  .num { flex: none; width: 52px; height: 52px; border-radius: 50%; color: #fff; font-size: 26px; font-weight: 600;
+         display: flex; align-items: center; justify-content: center; }
+  .step h2 { margin: 0 0 4px; font-size: 22px; }
+  .step ul { margin: 0; padding-left: 20px; }
+  .down { text-align: center; font-size: 30px; color: #9aa3b5; margin: 4px 0; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+  .box { border-radius: 12px; padding: 12px; font-size: 16px; }
+  .box b { display: block; font-size: 17px; }
+  .big { font-size: 22px; font-weight: 600; }
+  .wait { display: inline-block; background: #fff1c9; color: #7a5b00; border-radius: 6px; padding: 0 8px; font-size: 15px; }
+  .patterns { background: #fff; border-radius: 16px; padding: 18px; margin-top: 24px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+  .patterns h2 { margin: 0 0 8px; font-size: 22px; }
+  @media (max-width: 480px) { .two { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 <header>
-  <h1>Workflow การทำงานแต่ละแผนก</h1>
-  <p>กดที่แผนกเพื่อดูหน้าที่และงานที่ส่งต่อ</p>
+  <h1>ทำรูป → ลงสินค้า → เชื่อม SKU</h1>
+  <p>ทำตามทีละขั้น จากบนลงล่าง</p>
 </header>
 <main>
-  <h2>ลำดับงาน</h2>
-  <div class="flow" id="flow"></div>
-  <div class="detail" id="detail"></div>
-  <h2>ทุกแผนก</h2>
-  <div class="grid" id="grid"></div>
-  <h2 id="sop-title">คู่มือการทำงาน (SOP)</h2>
-  <div class="tabs" id="tabs"></div>
-  <div class="sop" id="sop"></div>
-</main>
-<script>
-// แก้ข้อมูลแผนกตรงนี้ — ลำดับใน list = ลำดับงานในแผนภาพ
-const departments = [
-  { name: 'คลังสินค้า (รับเข้า)', icon: '📦', color: '#2f80ed', owner: 'หัวหน้าคลัง',
-    duties: ['รับสินค้าจากโรงงาน/ซัพพลายเออร์', 'นับจำนวนและเช็คตำหนิ (QC)', 'ติด SKU และจัดเก็บเข้าชั้น'],
-    sops: ['qc', 'sku'], receive: 'สินค้าจากซัพพลายเออร์', send: 'สินค้าที่ผ่าน QC → ฝ่ายถ่ายรูป/คอนเทนต์' },
-  { name: 'ถ่ายรูป / คอนเทนต์', icon: '📸', color: '#9b51e0', owner: 'ทีมคอนเทนต์',
-    duties: ['ถ่ายรูปสินค้า ทำรูปปก', 'ตัดคลิปใน CapCut', 'อัปโหลด Shopee Video'],
-    sops: ['graphic'], receive: 'สินค้าใหม่จากคลัง', send: 'รูป + คลิป → ฝ่ายลงสินค้า' },
-  { name: 'ลงสินค้า', icon: '🛒', color: '#f2994a', owner: 'ทีมลงสินค้า',
-    duties: ['ลงสินค้าผ่าน BigSeller ทั้ง 9 ร้าน', 'ตั้งราคา ตัวเลือก และ SKU', 'เช็คสต็อกให้ตรงกับคลัง'],
-    sops: ['sku', 'graphic'], receive: 'รูป/คลิปจากคอนเทนต์', send: 'สินค้าพร้อมขาย → แอดมิน' },
-  { name: 'แอดมิน / ขาย', icon: '💬', color: '#27ae60', owner: 'แอดมิน',
-    duties: ['ตอบแชทลูกค้า', 'ยืนยันและเช็คออเดอร์', 'ดูแลการคืนสินค้า/ร้องเรียน'],
-    receive: 'สินค้าที่ลงแล้ว + ออเดอร์จากลูกค้า', send: 'ออเดอร์ที่ยืนยันแล้ว → แพ็คของ' },
-  { name: 'แพ็คของ / จัดส่ง', icon: '🚚', color: '#eb5757', owner: 'ทีมแพ็ค',
-    duties: ['หยิบสินค้าตามออเดอร์', 'แพ็คและอัดวิดีโอตอนแพ็ค (CCTV)', 'ส่งให้ขนส่งตามรอบ'],
-    sops: ['qc'], receive: 'ออเดอร์จากแอดมิน', send: 'เลขพัสดุ + ยอดส่ง → บัญชี' },
-  { name: 'บัญชี', icon: '💰', color: '#56657f', owner: 'ฝ่ายบัญชี',
-    duties: ['สรุปยอดขายรายวัน', 'เช็คเงินเข้าจาก Shopee', 'บันทึกค่าใช้จ่าย/ต้นทุน'],
-    receive: 'ยอดขายและยอดส่ง', send: 'รายงานสรุป → เจ้าของ' },
-];
 
-// คู่มือ SOP — แต่ละเรื่องมีหลายหัวข้อ: steps = ขั้นตอน, check = เช็คลิสต์ก่อนส่งงาน
-const sops = {
-  graphic: { title: '🎨 กราฟฟิก (ภาพ คลิป ตัวแทรก)', parts: [
-    { name: 'ภาพสินค้า', steps: [
-      'ถ่ายสินค้าจริงทุกสี/ทุกลาย ทั้งด้านหน้า ด้านหลัง และรายละเอียด',
-      'ภาพปก: สัดส่วน 1:1 ขนาดอย่างน้อย 1000×1000 px พื้นหลังสะอาด',
-      'ภาพตัวเลือก: 1 ภาพต่อ 1 สี/ลาย ให้ตรงกับ SKU',
-      'ตั้งชื่อไฟล์ตาม SKU เช่น CDZ-101-RED-01.jpg',
-      'เก็บไฟล์ใน Drive โฟลเดอร์ตามรุ่นสินค้า'],
-      check: ['สี/ลายในภาพตรงกับสินค้าจริง', 'ไม่มีราคาหรือข้อความโฆษณาในภาพตัวเลือก', 'ภาพคมชัด ไม่เบลอ']},
-    { name: 'คลิป', steps: [
-      'ถ่ายแนวตั้ง 9:16 ความยาว 10–60 วินาที',
-      'ตัดต่อใน CapCut ใส่เพลง/ข้อความตามเทมเพลตร้าน',
-      'Export 1080p แล้วตั้งชื่อไฟล์ตาม SKU',
-      'อัปโหลด Shopee Video และผูกสินค้าลงตะกร้า'],
-      check: ['คลิปไม่กลับด้าน/ไม่เอียง', 'ข้อความสะกดถูก', 'ผูกตะกร้าถูกสินค้า']},
-    { name: 'ตัวแทรก (ป้าย ข้อความ โลโก้บนภาพ/คลิป)', steps: [
-      'ใช้เทมเพลตตัวแทรกของร้านเท่านั้น (ฟอนต์ Kanit สีตามแบรนด์)',
-      'วางตัวแทรกไม่ให้บังตัวสินค้า',
-      'ป้ายโปรโมชันต้องมีวันหมดอายุ และเอาออกเมื่อหมดโปร'],
-      check: ['ใช้ฟอนต์และสีตามเทมเพลต', 'ไม่บังสินค้า', 'ข้อมูลโปรยังเป็นปัจจุบัน']},
-  ]},
-  sku: { title: '🏷️ ผูก / แก้ SKU', parts: [
-    { name: 'รูปแบบรหัส SKU', steps: [
-      'รูปแบบ: รุ่น-สี-ไซซ์ เช่น CDZ-101-RED-M',
-      'ใช้ตัวพิมพ์ใหญ่ คั่นด้วยขีด (-) ห้ามเว้นวรรค',
-      '1 สินค้าจริง = 1 SKU ห้ามซ้ำ'],
-      check: ['ไม่มี SKU ซ้ำในระบบ', 'สะกดตรงกับป้ายที่ติดสินค้าในคลัง']},
-    { name: 'ผูก SKU (สินค้าใหม่)', steps: [
-      'สร้าง SKU ในคลังสินค้า BigSeller ก่อน',
-      'ลงสินค้าแล้วผูก Merchant SKU ของทุกตัวเลือกเข้ากับ SKU คลัง',
-      'ผูกให้ครบทั้ง 9 ร้าน',
-      'เช็คหน้า "สินค้ายังไม่ผูก" ใน BigSeller ต้องเป็น 0'],
-      check: ['ทุกตัวเลือกผูกครบ', 'สต็อกขึ้นตรงกับคลังทุกร้าน']},
-    { name: 'แก้ SKU', steps: [
-      'แจ้งหัวหน้าก่อนแก้ทุกครั้ง',
-      'เช็คว่าไม่มีออเดอร์ค้างของ SKU นั้น',
-      'แก้ที่คลังสินค้า BigSeller แล้วซิงค์ไปทุกร้าน',
-      'เปลี่ยนป้าย SKU ที่ติดสินค้าในคลังให้ตรงกัน',
-      'จดบันทึก: วันที่ / SKU เดิม / SKU ใหม่ / คนแก้'],
-      check: ['สต็อกไม่หายหลังแก้', 'ป้ายในคลังตรงกับระบบ', 'บันทึกการแก้แล้ว']},
-  ]},
-  qc: { title: '✅ การ QC', parts: [
-    { name: 'QC ตอนรับสินค้าเข้า', steps: [
-      'นับจำนวนให้ตรงกับใบส่งของ',
-      'เช็คสี ลาย ไซซ์ ให้ตรงกับที่สั่ง',
-      'เช็คตำหนิ: รอยเปื้อน ขาด ด้ายหลุด ซิป/กระดุมเสีย',
-      'ติดป้าย SKU แล้วจัดเก็บเข้าชั้น'],
-      check: ['จำนวนตรงใบส่ง', 'ไม่มีตำหนิ', 'ติด SKU ครบ']},
-    { name: 'QC ก่อนแพ็ค', steps: [
-      'หยิบสินค้าแล้วสแกน/เช็ค SKU ให้ตรงกับออเดอร์',
-      'เช็คสภาพสินค้าอีกรอบก่อนใส่ถุง',
-      'แพ็คหน้ากล้อง CCTV ให้เห็นสินค้าและใบปะหน้า'],
-      check: ['SKU ตรงออเดอร์', 'จำนวนครบ', 'อัดวิดีโอตอนแพ็คแล้ว']},
-    { name: 'เมื่อเจอของเสีย', steps: [
-      'แยกใส่กล่องของเสีย ห้ามปนกับของดี',
-      'ถ่ายรูปตำหนิ ระบุ SKU และจำนวน',
-      'แจ้งหัวหน้าคลังเพื่อเคลมกับซัพพลายเออร์',
-      'ตัดสต็อกของเสียออกจากระบบ'],
-      check: ['แยกของแล้ว', 'มีรูปหลักฐาน', 'ตัดสต็อกแล้ว']},
-  ]},
-};
-
-const tabs = document.getElementById('tabs');
-const sopBox = document.getElementById('sop');
-function showSop(key) {
-  const s = sops[key];
-  tabs.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.key === key));
-  const users = departments.filter(d => (d.sops || []).includes(key)).map(d => d.icon + ' ' + d.name).join(', ');
-  sopBox.innerHTML = `<h3>${s.title}</h3>
-    <div class="note">ใช้กับแผนก: ${users} · ฉบับร่าง รอตรวจกับหัวหน้าแผนก</div>
-    ${s.parts.map(p => `<div class="part"><h4>${p.name}</h4>
-      <ol>${p.steps.map(x => `<li>${x}</li>`).join('')}</ol>
-      <div class="check"><b>เช็คก่อนส่งงาน</b>${p.check.map(x => `<label><input type="checkbox"> ${x}</label>`).join('')}</div>
-    </div>`).join('')}`;
-}
-Object.entries(sops).forEach(([key, s]) => {
-  const t = document.createElement('button');
-  t.className = 'tab'; t.dataset.key = key; t.textContent = s.title;
-  t.onclick = () => showSop(key);
-  tabs.appendChild(t);
-});
-function openSop(key) { showSop(key); document.getElementById('sop-title').scrollIntoView({ behavior: 'smooth' }); }
-
-const flow = document.getElementById('flow');
-const grid = document.getElementById('grid');
-const detail = document.getElementById('detail');
-
-function show(i) {
-  const d = departments[i];
-  document.querySelectorAll('.step').forEach((el, j) => el.classList.toggle('active', j === i));
-  detail.style.borderLeftColor = d.color;
-  detail.innerHTML = `
-    <h3>${d.icon} ${d.name}</h3>
-    <div class="meta">ผู้รับผิดชอบ: ${d.owner}</div>
-    <div class="cols">
-      <div><h4>หน้าที่</h4><ul>${d.duties.map(x => `<li>${x}</li>`).join('')}</ul></div>
-      <div><h4>⬅️ รับงานจาก</h4><p>${d.receive}</p><h4>➡️ ส่งงานต่อ</h4><p>${d.send}</p></div>
+  <div class="step">
+    <div class="num" style="background:#9b51e0">1</div>
+    <div>
+      <h2>🎨 ทำรูป</h2>
+      <ul>
+        <li>ดูว่าร้านไหนยังไม่มีสินค้าตาม <b>SKU merchant</b> <span class="wait">วิธีดู: รออธิบาย</span></li>
+        <li>ทำรูปให้ครบทุก SKU ที่ขาด</li>
+        <li>ใช้แพทเทิร์นตัวอย่างด้านล่าง</li>
+      </ul>
     </div>
-    ${d.sops ? `<div class="sop-links"><b>คู่มือที่ต้องใช้:</b><br>${d.sops.map(k => `<button onclick="openSop('${k}')">${sops[k].title}</button>`).join('')}</div>` : ''}`;
-}
+  </div>
+  <div class="down">⬇</div>
 
-departments.forEach((d, i) => {
-  if (i) flow.insertAdjacentHTML('beforeend', '<span class="arrow">➜</span>');
-  const b = document.createElement('button');
-  b.className = 'step';
-  b.style.background = d.color;
-  b.innerHTML = `${d.icon} ${d.name}<small>${d.owner}</small>`;
-  b.onclick = () => show(i);
-  flow.appendChild(b);
+  <div class="step">
+    <div class="num" style="background:#f2994a">2</div>
+    <div>
+      <h2>🛒 ลงสินค้าใน BigSeller</h2>
+      <ul>
+        <li>ใช้เมนู <b>เพิ่มสินค้าใหม่</b></li>
+        <li>ลงที่ Shopee · Lazada · TikTok รวม <b>21 ร้าน</b></li>
+        <li>คนทำรูปลงสินค้าต่อเองเลย (ยกเว้นมีแบ่งร้าน)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="down">⬇</div>
 
-  const c = document.createElement('div');
-  c.className = 'card';
-  c.style.borderTopColor = d.color;
-  c.innerHTML = `<b>${d.icon} ${d.name}</b><div>${d.duties.length} หน้าที่ · ${d.owner}</div>`;
-  c.onclick = () => { show(i); detail.scrollIntoView({ behavior: 'smooth' }); };
-  grid.appendChild(c);
-});
-show(0);
-showSop('graphic');
-</script>
+  <div class="step">
+    <div class="num" style="background:#2f80ed">3</div>
+    <div>
+      <h2>🔗 เชื่อม SKU</h2>
+      <ul>
+        <li>เชื่อม <b>SKU ร้านค้า</b> เข้ากับ <b>SKU merchant</b></li>
+        <li>ไปที่ <b>กฎการอัพเดท</b> แล้วกดอัพเดท สต๊อกทุกร้านจะเชื่อมกัน <span class="wait">รายละเอียด: รออธิบาย</span></li>
+      </ul>
+      <div class="two">
+        <div class="box" style="background:#e3f7ea">
+          <b>🆕 สินค้าใหม่</b>
+          ยังไม่มี SKU merchant
+          <div class="big">ใส่สต๊อก 100</div>
+        </div>
+        <div class="box" style="background:#eef0f4">
+          <b>♻️ สินค้าเก่า</b>
+          ลงแล้วบางร้าน แต่บางร้านยังไม่ลง
+          <div class="big">ไม่ต้องใส่สต๊อก</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="down">⬇</div>
+
+  <div class="step">
+    <div class="num" style="background:#27ae60">✓</div>
+    <div>
+      <h2>✅ จบงาน</h2>
+      <ul>
+        <li>ลงสินค้าครบทุกร้านแล้ว = เสร็จ</li>
+        <li>ไม่ต้องเก็บไฟล์รูป</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="patterns">
+    <h2>🧩 แพทเทิร์นตัวอย่าง</h2>
+    <span class="wait">รอไฟล์แพทเทิร์น PSD</span>
+  </div>
+
+</main>
 </body>
 </html>
